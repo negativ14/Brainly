@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { MONGOOSE_URL } from "./config";
-import { string } from "zod";
 const Schema = mongoose.Schema;
 const objectId = Schema.ObjectId;
 
@@ -16,10 +15,31 @@ export const connectDb = async() => {
 }
 
 const UserSchema = new Schema({
-    username: {type: string, unique: true},
-    password: string,
-    email: string
+    username: {type: String, unique: true},
+    password: {type: String, required: true},
+    email: {type: String, unique: true},
 })
 
+const contentType = ['Tweets', 'Videos', 'Documents', 'Links', 'Tags'];
+const ContentSchema = new Schema({
+    title: {type: String, required: true},
+    link: {type: String, required: true},
+    type: {type: String, enum: contentType, required: true},
+    userId: {type: objectId, ref: 'Users', required: true},
+    tags: [{type: String}],
+})
+
+const LinkSchema = new Schema({
+    hash: {type: String, required: true},
+    userId: {type: objectId, ref: 'Users', required: true, unique: true}
+})
+
+// const TagSchema = new Schema({
+//     title: {type: String, required: true, unique: true}
+// })
+
 export const UserModel = mongoose.model("Users", UserSchema);
+export const ContentModel = mongoose.model("Content", ContentSchema);
+export const LinkModel = mongoose.model("Link", LinkSchema);
+// export const TagModel = mongoose.model("Tag", TagSchema);
 

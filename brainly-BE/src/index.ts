@@ -8,7 +8,10 @@ import bcryptjs from "bcryptjs";
 import { UserModel } from "./db";
 import mongoose, { ObjectId } from "mongoose";
 import { middleware } from "./middleware";
-import crypto, { Hash, hash } from "crypto";
+import crypto from "crypto";
+import dotenv from "dotenv";
+dotenv.config();
+
 const PORT = 3000;
 
 const app = express();

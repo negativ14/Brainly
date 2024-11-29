@@ -8,8 +8,14 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const config_1 = require("./config");
 const Schema = mongoose_1.default.Schema;
 const objectId = Schema.ObjectId;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+// dotenv.config();OOSE_URL: string = process.env.MONGOOSE_URL || "your_default_mongodb_url
+// const MONG";
 const connectDb = async () => {
     try {
+        console.log("MONGOOSE_URL:", config_1.MONGOOSE_URL);
+        console.log("MONGOOSE_URL:", typeof (config_1.MONGOOSE_URL));
         await mongoose_1.default.connect(config_1.MONGOOSE_URL);
         console.log("Connected to DB");
     }

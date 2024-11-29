@@ -14,6 +14,8 @@ const db_2 = require("./db");
 const mongoose_1 = __importDefault(require("mongoose"));
 const middleware_1 = require("./middleware");
 const crypto_1 = __importDefault(require("crypto"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const PORT = 3000;
 const app = (0, express_1.default)();
 app.use(express_1.default.json());

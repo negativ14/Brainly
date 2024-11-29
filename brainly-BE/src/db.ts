@@ -1,10 +1,17 @@
 import mongoose from "mongoose";
-import { MONGOOSE_URL } from "./config";
+import  { MONGOOSE_URL}  from "./config";
 const Schema = mongoose.Schema;
-const objectId = Schema.ObjectId;
+const objectId  = Schema.ObjectId;
+import dotenv from 'dotenv';
+dotenv.config();
+// dotenv.config();OOSE_URL: string = process.env.MONGOOSE_URL || "your_default_mongodb_url
+// const MONG";
 
 export const connectDb = async() => {
   try{
+    // console.log("MONGOOSE_URL:", MONGOOSE_URL);
+    // console.log("MONGOOSE_URL:", typeof(MONGOOSE_URL));
+
     await mongoose.connect(MONGOOSE_URL);
     console.log("Connected to DB")
   }
@@ -21,6 +28,7 @@ const UserSchema = new Schema({
 })
 
 const contentType = ['Tweets', 'Videos', 'Documents', 'Links', 'Tags'];
+
 const ContentSchema = new Schema({
     title: {type: String, required: true},
     link: {type: String, required: true},

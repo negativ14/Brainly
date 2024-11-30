@@ -1,34 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+// import Button from './components/Button'
+import Cards from './components/Cards'
+// import ShareIcon from './Icons/ShareIcon'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='flex flex-wrap gap-4 bg-gray-300'>
+      <Cards contentType='Tweets' title='Ajj ki khabar' link="https://twitter.com/kirat_tw/status/1633685473821425666"/>
+      <Cards contentType='Videos' title='kal ki khabar' link="https://www.youtube.com/embed/ofHGE-85EIA?si=yhnD62Ft5ZeCc3po" tags={['cd','cddcbydh','cd','cddcbydh','cd']}/>
+      <Cards contentType='Posts' title='parsu ki taja khabar aaj batata hu'/>
+      <Cards contentType='Documents' title='khabar' description='AAJ KAL PARSU b hjvgyuvhyjyvfujfut' tags={['cd','cddcbydh','cd','cddcbydh','cd','cddcbydh','cd','cddcbydh','cd','cddcbydh',]}/>
+    </div>
   )
 }
 

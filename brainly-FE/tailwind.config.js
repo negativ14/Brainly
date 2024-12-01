@@ -9,6 +9,9 @@ export default {
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
       },
+      gridAutoRows: {
+        masonry: 'minmax(10px, auto)', // Adjust the "minmax" values as needed
+      },
     },
   },
   plugins: [],

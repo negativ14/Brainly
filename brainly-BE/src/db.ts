@@ -27,7 +27,7 @@ const UserSchema = new Schema({
     email: {type: String, unique: true},
 })
 
-const contentType = ['Tweets', 'Videos', 'Documents', 'Links', 'Tags'];
+const contentType = ['Tweets', 'Videos', 'Documents'];
 
 const ContentSchema = new Schema({
     title: {type: String, required: true},

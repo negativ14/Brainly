@@ -41,6 +41,14 @@ app.post("/api/v1/signUp", async (req, res) => {
             });
         }
         const { username, password, email } = req.body;
+        const existingUser = await db_2.UserModel.findOne({
+            $or: [{ username }, { email }],
+        });
+        if (existingUser) {
+            return res.status(409).json({
+                message: "User already exists with the same username or email.",
+            });
+        }
         const hashedPassword = await bcryptjs_1.default.hash(password, 10);
         const user = await db_2.UserModel.create({
             username,
@@ -72,7 +80,6 @@ app.post("/api/v1/signIn", async (req, res) => {
                 .regex(/[A-Za-z]/, "Password must contain at least one character")
                 .regex(/\d/, "Password must conatin at least one digit")
                 .regex(/[\W_]/, "Password must contain at least one special character"),
-            email: zod_1.z.string().email(),
         });
         const parsedUserInput = userInput.safeParse(req.body);
         if (!parsedUserInput.success) {
@@ -81,8 +88,8 @@ app.post("/api/v1/signIn", async (req, res) => {
                 error: parsedUserInput.error.errors.map(err => err.message)
             });
         }
-        const { username, password, email } = req.body;
-        const user = await db_2.UserModel.findOne({ username: username, email: email });
+        const { username, password } = req.body;
+        const user = await db_2.UserModel.findOne({ username: username });
         if (!user) {
             return res.status(403).json({
                 message: "Incorrect credentials"

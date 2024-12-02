@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "./config";
 import cors from "cors";
 import { connectDb, ContentModel, LinkModel } from "./db";
-import { promise, z } from "zod";
+import { z } from "zod";
 import bcryptjs from "bcryptjs";
 import { UserModel } from "./db";
 import mongoose, { ObjectId } from "mongoose";
@@ -43,6 +43,17 @@ app.post("/api/v1/signUp", async (req: Request, res: Response): Promise<any> => 
         }
 
         const { username, password, email } = req.body;
+
+        const existingUser = await UserModel.findOne({
+            $or: [{ username }, { email }],
+        });
+
+        if (existingUser) {
+            return res.status(409).json({
+                message: "User already exists with the same username or email.",
+            });
+        }
+
         const hashedPassword = await bcryptjs.hash(password, 10);
 
         const user = await UserModel.create({
@@ -78,7 +89,6 @@ app.post("/api/v1/signIn", async (req: Request, res: Response): Promise<any> => 
             .regex(/[A-Za-z]/, "Password must contain at least one character")
             .regex(/\d/, "Password must conatin at least one digit") 
             .regex(/[\W_]/, "Password must contain at least one special character"),
-            email: z.string().email(),
         })
 
         const parsedUserInput = userInput.safeParse(req.body);
@@ -97,8 +107,8 @@ app.post("/api/v1/signIn", async (req: Request, res: Response): Promise<any> => 
             _id: ObjectId;
         }
 
-        const { username, password, email } = req.body;
-        const user : User | null = await UserModel.findOne( {username: username, email: email} );
+        const { username, password } = req.body;
+        const user : User | null = await UserModel.findOne( {username: username} );
 
         if(!user){
             return res.status(403).json({

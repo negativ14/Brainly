@@ -14,8 +14,8 @@ dotenv_1.default.config();
 // const MONG";
 const connectDb = async () => {
     try {
-        console.log("MONGOOSE_URL:", config_1.MONGOOSE_URL);
-        console.log("MONGOOSE_URL:", typeof (config_1.MONGOOSE_URL));
+        // console.log("MONGOOSE_URL:", MONGOOSE_URL);
+        // console.log("MONGOOSE_URL:", typeof(MONGOOSE_URL));
         await mongoose_1.default.connect(config_1.MONGOOSE_URL);
         console.log("Connected to DB");
     }
@@ -30,7 +30,7 @@ const UserSchema = new Schema({
     password: { type: String, required: true },
     email: { type: String, unique: true },
 });
-const contentType = ['Tweets', 'Videos', 'Documents', 'Links', 'Tags'];
+const contentType = ['Tweets', 'Videos', 'Documents'];
 const ContentSchema = new Schema({
     title: { type: String, required: true },
     link: { type: String, required: true },

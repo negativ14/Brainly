@@ -10,7 +10,6 @@ const SignIn = () => {
     const [responseMessage, setResponseMessage] = useState<string | null>(null);
     const navigate = useNavigate();
 
-
     const signinHandler = async () => {
         const username = userRef.current?.value;
         const password = passwordRef.current?.value;
@@ -33,6 +32,8 @@ const SignIn = () => {
                 clearHandler();
             }, 3000);
 
+            navigate('/dashboard');
+
         } catch (error: any) {
             if ((error.response?.status === 400 || error.response?.status === 403) && error.response?.data?.error) {
                 setResponseMessage(`Sign-In failed. Incorrect Credantials`);
@@ -48,7 +49,6 @@ const SignIn = () => {
     const clearHandler = () => {
         if (userRef.current) userRef.current.value = "";
         if (passwordRef.current) passwordRef.current.value = "";
-
         setResponseMessage(null);
     }
 
@@ -63,14 +63,14 @@ const SignIn = () => {
                 <div onClick={() => navigate('/signUp')}><Button text="SignUp" variant="secondary" size="md"></Button></div>
                 <div onClick={() => navigate('/signIn')}><Button text="SignIn" variant="primary" size="md"></Button></div>
             </div>
-            <div className="w-screen h-screen bg-purple-100 flex">
-                <div className="h-full w-3/5 bg-white bg-gradient-to-tr  from-white to-purple-200 flex flex-col justify-center items-center">
+            <div className="w-screen h-screen bg-white bg-gradient-to-tr  from-white to-purple-200 flex p-4">
+                <div className="h-full w-3/5  flex flex-col justify-center items-center">
                     <div><svg className="w-80 h-80 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="purple" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18.5A2.493 2.493 0 0 1 7.51 20H7.5a2.468 2.468 0 0 1-2.4-3.154 2.98 2.98 0 0 1-.85-5.274 2.468 2.468 0 0 1 .92-3.182 2.477 2.477 0 0 1 1.876-3.344 2.5 2.5 0 0 1 3.41-1.856A2.5 2.5 0 0 1 12 5.5m0 13v-13m0 13a2.493 2.493 0 0 0 4.49 1.5h.01a2.468 2.468 0 0 0 2.403-3.154 2.98 2.98 0 0 0 .847-5.274 2.468 2.468 0 0 0-.921-3.182 2.477 2.477 0 0 0-1.875-3.344A2.5 2.5 0 0 0 14.5 3 2.5 2.5 0 0 0 12 5.5m-8 5a2.5 2.5 0 0 1 3.48-2.3m-.28 8.551a3 3 0 0 1-2.953-5.185M20 10.5a2.5 2.5 0 0 0-3.481-2.3m.28 8.551a3 3 0 0 0 2.954-5.185" /></svg></div>
-                    <h1 className="text-6xl font-bold text-purple-500">Your Second Brain</h1>
+                    <h1 className="text-6xl font-bold text-purple-500 m-4">Your Second Brain</h1>
                     <h3 className="text-center text-wrap w-11/12 text-gray-800">Brainly is a simple and efficient platform for saving and organizing your favorite tweets, videos, and document links all in one place. Keep your content accessible for future use and never lose track valuable resources!</h3>
                 </div>
 
-                <div className="h-full w-2/5 bg-gradient-to-r from-purple-600 to-purple-400 flex justify-center items-center">
+                <div className="h-full w-2/5 bg-gradient-to-r from-purple-600 to-purple-400 flex justify-center items-center rounded-md">
                     <div className="h-56 w-64 bg-white rounded-md shadow-md flex flex-col p-4 justify-start items-center">
                         <input className="bg-gray-100 rounded-md h-8 p-2 w-56 border mt-6 mb-2 border-gray-300 focus:border-gray-400 focus:outline-none  text-sm text-gray-500 " type="text" placeholder="username" ref={userRef} />
                         <input className="bg-gray-100 rounded-md h-8 p-2 w-56 border mt-6 mb-2 border-gray-300 focus:border-gray-400 focus:outline-none  text-sm text-gray-500 " type="password" placeholder="password" ref={passwordRef} />

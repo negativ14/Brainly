@@ -31,10 +31,11 @@ const contentType = ['Tweets', 'Videos', 'Documents'];
 
 const ContentSchema = new Schema({
     title: {type: String, required: true},
-    link: {type: String, required: true},
+    link: {type: String},
     type: {type: String, enum: contentType, required: true},
     userId: {type: objectId, ref: 'Users', required: true},
     tags: [{type: String}],
+    file: {type: Buffer},
 })
 
 const LinkSchema = new Schema({

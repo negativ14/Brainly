@@ -10,9 +10,13 @@ import mongoose, { ObjectId } from "mongoose";
 import { middleware } from "./middleware";
 import crypto from "crypto";
 import dotenv from "dotenv";
+import multer from "multer";
 dotenv.config();
 
 const PORT = 3000;
+
+const storage = multer.memoryStorage();
+const upload = multer({storage: storage});
 
 const app = express();
 app.use(express.json());
@@ -137,9 +141,13 @@ app.post("/api/v1/signIn", async (req: Request, res: Response): Promise<any> => 
     }
 });
 
-app.post("/api/v1/add-content", middleware, async (req: Request, res: Response) => {
+
+//diskStorage() if you want to store the file in a specific location
+
+app.post("/api/v1/add-content", middleware, upload.single('file'), async (req: Request, res: Response) => {
     try{
-        const { title, link, type, tags }: { title: string, link: string, type: string, tags: string[] } = req.body;
+        const { title, link, type, tags}: { title: string, link: string, type: string, tags: string[]} = req.body;
+        const fileStorage = req.file?.buffer;
 
         await ContentModel.create({
             title,
@@ -147,10 +155,11 @@ app.post("/api/v1/add-content", middleware, async (req: Request, res: Response) 
             type,
             userId: req.userId,
             tags,
+            file: fileStorage,
         })
 
         res.status(200).json({
-            message: "Content created"
+            message: "Content created successfully!"
         })
     }
     catch(error){

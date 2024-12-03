@@ -15,8 +15,11 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const middleware_1 = require("./middleware");
 const crypto_1 = __importDefault(require("crypto"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const multer_1 = __importDefault(require("multer"));
 dotenv_1.default.config();
 const PORT = 3000;
+const storage = multer_1.default.memoryStorage();
+const upload = (0, multer_1.default)({ storage: storage });
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
@@ -113,18 +116,21 @@ app.post("/api/v1/signIn", async (req, res) => {
         });
     }
 });
-app.post("/api/v1/add-content", middleware_1.middleware, async (req, res) => {
+//diskStorage() if you want to store the file in a specific location
+app.post("/api/v1/add-content", middleware_1.middleware, upload.single('file'), async (req, res) => {
     try {
         const { title, link, type, tags } = req.body;
+        const fileStorage = req.file?.buffer;
         await db_1.ContentModel.create({
             title,
             link,
             type,
             userId: req.userId,
             tags,
+            file: fileStorage,
         });
         res.status(200).json({
-            message: "Content created"
+            message: "Content created successfully!"
         });
     }
     catch (error) {

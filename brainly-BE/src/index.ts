@@ -195,7 +195,7 @@ app.delete("/api/v1/delete-content", middleware, async (req: Request, res: Respo
         const {contentId } = req.body;
         console.log(contentId);
         const objectContentId = new mongoose.Types.ObjectId(contentId);
-        //console.log(objectContentId);
+        console.log(objectContentId);
 
         await ContentModel.deleteOne({
             userId,

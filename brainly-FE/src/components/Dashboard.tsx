@@ -7,6 +7,7 @@ import { useState } from "react"
 import Sidebar from "./Sidebar"
 import { useContent } from "../hooks/useContent"
 import NoData from "./NoData"
+import { ObjectId } from "mongoose"
 
 
 const Dashboard = () => {
@@ -15,6 +16,11 @@ const Dashboard = () => {
     const [dashboardContent, setDashboardContent] = useState("All")
     const apiContent = useContent();
 
+    const filteredContent = dashboardContent === 'All' 
+        ? apiContent 
+        : apiContent.filter((item: Item) => item.type === dashboardContent);
+
+
     interface Item {
         type: "Tweets" | "Videos" | "Documents"
         key: Number;
@@ -22,6 +28,7 @@ const Dashboard = () => {
         title: string;
         link: string;
         tags: string[];
+        _id: ObjectId;
     }
 
     return (
@@ -41,7 +48,26 @@ const Dashboard = () => {
                 <div className="mt-0">
                     <div className="columns-2xs space-y-10  p-16 ">
 
-                        {dashboardContent == 'All' && (
+
+                    {filteredContent.length ? (
+                            filteredContent.map((item: Item, index: number) => {
+                                return (
+                                    <Cards
+                                        key={index} 
+                                        date={item.date}
+                                        contentType={item.type}
+                                        title={item.title}
+                                        link={item.link}
+                                        tags={item.tags}
+                                        _id={item._id} 
+                                    />
+                                );
+                            })
+                        ) : (
+                            <NoData />
+                        )}
+
+                        {/* {dashboardContent == 'All' && (
                             apiContent.length ? apiContent.map((item: Item, index: number) => {
                                 console.log(item);
 
@@ -53,6 +79,7 @@ const Dashboard = () => {
                                         title={item.title}
                                         link={item.link}
                                         tags={item.tags}
+                                        _id={item._id}
                                     />
                                 );
                             }) : <NoData />
@@ -105,7 +132,7 @@ const Dashboard = () => {
                                     />
                                 );
                             }) : <NoData />
-                        )}
+                        )} */}
 
                     </div>
                 </div>

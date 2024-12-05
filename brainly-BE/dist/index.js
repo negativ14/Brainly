@@ -119,7 +119,7 @@ app.post("/api/v1/signIn", async (req, res) => {
 //diskStorage() if you want to store the file in a specific location
 app.post("/api/v1/add-content", middleware_1.middleware, upload.single('file'), async (req, res) => {
     try {
-        const { title, link, type, tags } = req.body;
+        const { title, link, type, tags, date } = req.body;
         const fileStorage = req.file?.buffer;
         await db_1.ContentModel.create({
             title,
@@ -128,6 +128,7 @@ app.post("/api/v1/add-content", middleware_1.middleware, upload.single('file'), 
             userId: req.userId,
             tags,
             file: fileStorage,
+            date,
         });
         res.status(200).json({
             message: "Content created successfully!"
@@ -139,7 +140,7 @@ app.post("/api/v1/add-content", middleware_1.middleware, upload.single('file'), 
         });
     }
 });
-app.get("/api/v1/content", middleware_1.middleware, async (req, res) => {
+app.get("/api/v1/get-content", middleware_1.middleware, async (req, res) => {
     try {
         const userId = req.userId;
         const content = await db_1.ContentModel.find({ userId }).populate("userId", "username"); // is userId ke table me bas username dalna hai na ki password email etc..

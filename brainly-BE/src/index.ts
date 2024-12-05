@@ -146,7 +146,7 @@ app.post("/api/v1/signIn", async (req: Request, res: Response): Promise<any> => 
 
 app.post("/api/v1/add-content", middleware, upload.single('file'), async (req: Request, res: Response) => {
     try{
-        const { title, link, type, tags}: { title: string, link: string, type: string, tags: string[]} = req.body;
+        const { title, link, type, tags, date}: { title: string, link: string, type: string, tags: string[], date: string} = req.body;
         const fileStorage = req.file?.buffer;
 
         await ContentModel.create({
@@ -156,6 +156,7 @@ app.post("/api/v1/add-content", middleware, upload.single('file'), async (req: R
             userId: req.userId,
             tags,
             file: fileStorage,
+            date,
         })
 
         res.status(200).json({
@@ -169,7 +170,7 @@ app.post("/api/v1/add-content", middleware, upload.single('file'), async (req: R
     }
 });
 
-app.get("/api/v1/content", middleware, async (req: Request, res: Response) => {
+app.get("/api/v1/get-content", middleware, async (req: Request, res: Response) => {
     try {
         const userId = req.userId;
         const content = await ContentModel.find({ userId }).populate("userId", "username"); // is userId ke table me bas username dalna hai na ki password email etc..

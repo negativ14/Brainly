@@ -4,6 +4,8 @@ import { useRef, useState } from "react";
 import { DocumentModel, TweetModel, VideoModel } from "./contentModels";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
+import { format } from "date-fns";
+import { useContent } from "../hooks/useContent";
 
 const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
     const [content, setContent] = useState("Videos");
@@ -14,6 +16,7 @@ const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void
     const [fileError, setFileError] = useState<string | null>(null);
     const [file, setFile] = useState<File | null>(null);
     const [responseMessage, setResponseMessage] = useState<string | null>(null);
+    const date = format(new Date,("MM/dd//yyyy"))
 
 
     const submitHandler = async () => {
@@ -45,7 +48,8 @@ const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void
                     type: content,
                     title: title,
                     tags: tagsArray,
-                    file: file
+                    file: file,
+                    date: date,
                 }, {
                     headers: {
                         Authorization: token
@@ -58,6 +62,8 @@ const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void
                 } else {
                     setResponseMessage("Added content successfully!");
                 }
+
+                useContent();
             } catch (error) {
                 setResponseMessage("Error uploading file!");
             }
@@ -71,6 +77,7 @@ const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void
                     title: title,
                     tags: tagsArray,
                     link: link,
+                    date: date,
                 }, {
                     headers: {
                         Authorization: token
@@ -83,6 +90,8 @@ const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void
                 } else {
                     setResponseMessage("Added content successfully!");
                 }
+
+                useContent();
             } catch (error) {
                 setResponseMessage("Error uploading content!");
             }

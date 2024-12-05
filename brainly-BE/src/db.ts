@@ -36,6 +36,7 @@ const ContentSchema = new Schema({
     userId: {type: objectId, ref: 'Users', required: true},
     tags: [{type: String}],
     file: {type: Buffer},
+    date: {type: String},
 })
 
 const LinkSchema = new Schema({

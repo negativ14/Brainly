@@ -5,9 +5,9 @@ import { DocumentModel, TweetModel, VideoModel } from "./contentModels";
 import { BACKEND_URL } from "../config";
 import axios from "axios";
 import { format } from "date-fns";
-import { useContent } from "../hooks/useContent";
+//import { useContent } from "../hooks/useContent";
 
-const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
+const AddContentModel = ({ open, onClose, refresh }: { open: boolean; onClose: () => void; refresh: () => void}) => {
     const [content, setContent] = useState("Videos");
     const titleRef = useRef<HTMLInputElement>(null);
     const linkRef = useRef<HTMLInputElement>(null);
@@ -63,7 +63,8 @@ const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void
                     setResponseMessage("Added content successfully!");
                 }
 
-                useContent();
+                refresh;
+                //useContent();
             } catch (error) {
                 setResponseMessage("Error uploading file!");
             }
@@ -91,7 +92,8 @@ const AddContentModel = ({ open, onClose }: { open: boolean; onClose: () => void
                     setResponseMessage("Added content successfully!");
                 }
 
-                useContent();
+                refresh;
+                //useContent();
             } catch (error) {
                 setResponseMessage("Error uploading content!");
             }

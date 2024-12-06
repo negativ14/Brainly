@@ -11,7 +11,6 @@ const db_1 = require("./db");
 const zod_1 = require("zod");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const db_2 = require("./db");
-const mongoose_1 = __importDefault(require("mongoose"));
 const middleware_1 = require("./middleware");
 const crypto_1 = __importDefault(require("crypto"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -160,13 +159,17 @@ app.delete("/api/v1/delete-content", middleware_1.middleware, async (req, res) =
     try {
         const userId = req.userId;
         const { contentId } = req.body;
-        console.log(contentId);
-        const objectContentId = new mongoose_1.default.Types.ObjectId(contentId);
-        console.log(objectContentId);
-        await db_1.ContentModel.deleteOne({
+        console.log("content id =", contentId);
+        // const objectId = ObjectId(contentId); 
+        // console.log(contentId);
+        console.log(typeof contentId);
+        // const objectContentId = ObjectId(contentId);
+        // console.log(objectId);
+        const resposne = await db_1.ContentModel.deleteOne({
             userId,
-            _id: objectContentId
+            _id: contentId
         });
+        console.log(resposne);
         res.status(200).json({
             message: "Content deleted successfully"
         });

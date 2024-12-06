@@ -192,19 +192,26 @@ app.get("/api/v1/get-content", middleware, async (req: Request, res: Response) =
 app.delete("/api/v1/delete-content", middleware, async (req: Request, res: Response) => {
     try {
         const userId = req.userId;
-        const {contentId } = req.body;
-        console.log(contentId);
-        const objectContentId = new mongoose.Types.ObjectId(contentId);
-        console.log(objectContentId);
+        const {contentId} = req.body;
+        
+        console.log("content id =",contentId)
+        // const objectId = ObjectId(contentId); 
+        // console.log(contentId);
+        console.log(typeof contentId);
+        // const objectContentId = ObjectId(contentId);
+        // console.log(objectId);
 
-        await ContentModel.deleteOne({
+        const resposne = await ContentModel.deleteOne({
             userId,
-            _id : objectContentId
+            _id : contentId
         })
+
+        console.log(resposne)
 
         res.status(200).json({
             message: "Content deleted successfully"
         })
+
     } catch (error) {
         res.status(500).json({
             message: `Server side issue ${error}`

@@ -8,9 +8,9 @@ const ErrorPage = ({error}: {error: string}) => {
         navigate('/signup')
     }
   return (
-    <div>
-        <div className="h-screen w-screen flex justify-center items-center text-4xl text-red-500">{error}</div>
-        <div onClick={navigateHandler} className="flex justify-center items-center "> <Button size='md' text="Go Home" variant="primary" ></Button></div>
+    <div className="h-screen w-screen flex flex-col justify-center items-center gap-y-2">
+        <div className="text-4xl text-red-400">{error}</div>
+        <div onClick={navigateHandler}> <Button size='md' text="Go Home" variant="primary" ></Button></div>
     </div>
   )
 }

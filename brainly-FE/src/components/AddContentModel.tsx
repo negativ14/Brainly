@@ -63,7 +63,7 @@ const AddContentModel = ({ open, onClose, refresh }: { open: boolean; onClose: (
                     setResponseMessage("Added content successfully!");
                 }
 
-                refresh;
+                refresh();
                 //useContent();
             } catch (error) {
                 setResponseMessage("Error uploading file!");
@@ -92,7 +92,7 @@ const AddContentModel = ({ open, onClose, refresh }: { open: boolean; onClose: (
                     setResponseMessage("Added content successfully!");
                 }
 
-                refresh;
+                refresh();
                 //useContent();
             } catch (error) {
                 setResponseMessage("Error uploading content!");

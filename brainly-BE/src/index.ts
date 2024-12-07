@@ -212,6 +212,7 @@ app.delete("/api/v1/delete-content", middleware, async (req: Request, res: Respo
             message: "Content deleted successfully"
         })
 
+       
     } catch (error) {
         res.status(500).json({
             message: `Server side issue ${error}`
@@ -247,7 +248,7 @@ app.post("/api/v1/brain/share", middleware, async (req: Request, res: Response):
 
             res.status(200).json({
                 message: "Created Link",
-                GeneratedHash: hash
+                hash: hash
             })
         }
         else{

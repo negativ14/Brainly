@@ -202,7 +202,7 @@ app.post("/api/v1/brain/share", middleware_1.middleware, async (req, res) => {
             });
             res.status(200).json({
                 message: "Created Link",
-                GeneratedHash: hash
+                hash: hash
             });
         }
         else {

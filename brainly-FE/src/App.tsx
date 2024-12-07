@@ -4,7 +4,6 @@ import SignIn from './components/SignIn';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import PageNotFound from './components/PageNotFound';
-import ErrorPage from './components/ErrorPage';
 
 function App() {
 
@@ -16,7 +15,6 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/errorpage" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   )

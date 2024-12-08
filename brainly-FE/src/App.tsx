@@ -4,6 +4,7 @@ import SignIn from './components/SignIn';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import PageNotFound from './components/PageNotFound';
+import ShareLinkPage from './ShareLinkPage';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/signIn" element={<SignIn />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/brain/:shareLink" element={<ShareLinkPage/>}/>
       </Routes>
     </BrowserRouter>
   )

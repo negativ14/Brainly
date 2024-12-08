@@ -103,7 +103,7 @@ const Dashboard = () => {
                         </div>
 
                         <div className="mt-0">
-                            <div className="flex flex-wrap gap-5 p-10 ">
+                            <div className="flex flex-wrap gap-5 p-10">
                                 {loading ? (<div className="flex justify-center items-center text-4xl text-gray-500">Loading content...</div>)
                                     : (filteredContent.length > 0 ? (
                                         filteredContent.map((item: Item, index: number) => (

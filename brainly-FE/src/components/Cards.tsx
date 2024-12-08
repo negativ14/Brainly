@@ -19,13 +19,13 @@ interface CardsProps {
     description?: string;
     date: string;
     _id: ObjectId;
-    refresh: () => void;
-    setShareCard: (link : string) => void;
+    refresh?: () => void;
+    setShareCard?: (link: string) => void;
     // shareCard: string
 }
 
 const Cards = (props: CardsProps) => {
-    const { tags, contentType, description, link, date, _id, refresh, setShareCard} = props;
+    const { tags, contentType, description, link, date, _id, refresh, setShareCard } = props;
     //console.log("abhi ",_id)
     //console.log("abhi type ", typeof(_id))
     //const objectId = _id.toString();
@@ -41,21 +41,23 @@ const Cards = (props: CardsProps) => {
             // Optionally, add functionality to remove the card from the UI after deletion
             console.log("Content deleted:", _id);
 
-            refresh();
+            if (refresh)
+                refresh();
         } catch (error) {
             console.error("Error deleting content:", error);
         }
     };
 
     const shareCardHandler = () => {
-        if(link){
-            setShareCard(link);
+        if (link) {
+            if (setShareCard)
+                setShareCard(link);
             console.log(link);
-        }  
+        }
     }
 
     return (
-        <div className="bg-white rounded-md shadow-md border-slate-900 w-fit max-w-80 p-4">
+        <div className="bg-white rounded-md shadow-md border-slate-900 h-fit w-fit max-w-80 p-4">
             <div className="flex justify-between">
                 <div className="flex gap-x-1 items-center">
                     <div className="flex-shrink-0">{typeArray[contentType]}</div>
@@ -70,7 +72,14 @@ const Cards = (props: CardsProps) => {
 
             <div className="my-4">
                 {contentType === "Tweets" && <blockquote className="twitter-tweet"><a href={link}></a></blockquote>}
-                {contentType === "Videos" && <iframe className="w-full rounded-md" src={link} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
+                {contentType === "Videos" && <iframe
+                    className="w-full rounded-md"
+                    src={`https://www.youtube.com/embed/${link?.split("/").pop()}`}
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                ></iframe>}
                 {contentType === "Documents" && <div className="text-gray-700 text-sm bg-gray-100 rounded-md p-2 font-medium ">{description}</div>}
             </div>
 

@@ -42,6 +42,8 @@ const AddContentModel = ({ open, onClose, refresh }: { open: boolean; onClose: (
 
         // Handle Document upload
         if (file && content === 'Documents') {
+            //const formData = new FormData();
+            //formData.append("file",file);
             try {
                 console.log(file);
                 const response = await axios.post(BACKEND_URL + "/api/v1/add-content", {

@@ -6,7 +6,7 @@ const ShareModel = ({ setShare, share }: { setShare: (arg: string | null) => voi
 
     const [copied, setCopied] = useState(false);
     const [error, setError] = useState<boolean>(false);
-    const shareLink = "http://localhost:5173/api/v1/brain/:" + share;
+    const shareLink = "http://localhost:5173/brain/" + share;
 
     const copyHandler = () => {
         console.log("share link is ",shareLink)

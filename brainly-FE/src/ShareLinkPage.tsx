@@ -31,6 +31,7 @@ const ShareLinkPage = () => {
         try {
             const response = await axios.get(BACKEND_URL + `/api/v1/brain/${shareLink}`)
             setApiContent(response.data.content)
+            console.log(response.data);
             console.log(apiContent);
         } catch (error) {
             setError("Server side error")
@@ -42,7 +43,8 @@ const ShareLinkPage = () => {
 
     useEffect(() => {
         fetchData();
-    },[shareLink])
+        console.log(apiContent);
+    },[])
 
     const filteredContent = dashboardContent === "All"
         ? apiContent

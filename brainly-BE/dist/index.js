@@ -120,6 +120,7 @@ app.post("/api/v1/add-content", middleware_1.middleware, upload.single('file'), 
     try {
         const { title, link, type, tags, date } = req.body;
         const fileStorage = req.file?.buffer;
+        console.log("file ", fileStorage);
         await db_1.ContentModel.create({
             title,
             link,

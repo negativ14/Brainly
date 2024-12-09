@@ -149,6 +149,8 @@ app.post("/api/v1/add-content", middleware, upload.single('file'), async (req: R
         const { title, link, type, tags, date}: { title: string, link: string, type: string, tags: string[], date: string} = req.body;
         const fileStorage = req.file?.buffer;
 
+        console.log("file ",fileStorage);
+
         await ContentModel.create({
             title,
             link,
